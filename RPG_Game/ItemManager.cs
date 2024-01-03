@@ -18,7 +18,7 @@ namespace RPG_Game
         private readonly Item[] _items;
         public ItemManager()
         {
-            List<Item>? list = (List<Item>?)Utilities.LoadFile(DataType.Item);
+            List<Item>? list = (List<Item>?)Utilities.LoadFile(LoadType.Item);
 
             _items = list.ToArray();
         }

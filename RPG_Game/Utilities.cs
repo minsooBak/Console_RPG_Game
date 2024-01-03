@@ -4,7 +4,14 @@ using System.Security.Cryptography;
 
 namespace RPG_Game
 {
-    enum DataType
+    enum SaveType
+    {
+        NONE,
+        Player,
+        Inventory,
+        Shop
+    }
+    enum LoadType
     {
         NONE,
         Player,
@@ -24,11 +31,11 @@ namespace RPG_Game
 
     internal static class Utilities
     {
-        public static object? LoadFile(DataType type)
+        public static object? LoadFile(LoadType type)
         {
             switch (type)
             {
-                case DataType.Player:
+                case LoadType.Player:
                     {
                         string? path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\P_Data.json";
                         if (File.Exists(path) == false)
@@ -53,7 +60,7 @@ namespace RPG_Game
                         }
                         break;
                     }
-                case DataType.Map:
+                case LoadType.Map:
                     {
                         string? path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Map_Data.json";
 
@@ -72,14 +79,14 @@ namespace RPG_Game
 
                         break;
                     }
-                case DataType.Item:
-                case DataType.Inventory:
-                case DataType.Shop:
+                case LoadType.Item:
+                case LoadType.Inventory:
+                case LoadType.Shop:
                     {
                         string? path;
-                        if (type == DataType.Shop)
+                        if (type == LoadType.Shop)
                             path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\S_Data.json";
-                        else if (type == DataType.Inventory)
+                        else if (type == LoadType.Inventory)
                             path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\I_Data.json";
                         else
                             path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Item_Data.json";
@@ -102,13 +109,13 @@ namespace RPG_Game
             return null;
         }
 
-        public static void SaveFile(DataType dataType, object data)
+        public static void SaveFile(SaveType dataType, object data)
         {
             string path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "";
 
             switch (dataType)
             {
-                case DataType.Player:
+                case SaveType.Player:
                     {
                         path += @"\P_Data.json";
                         PlayerState state = (PlayerState)data;
@@ -123,14 +130,14 @@ namespace RPG_Game
                         File.WriteAllText(path, JsonConvert.SerializeObject(configData));
                         break;
                     }
-                case DataType.Inventory:
+                case SaveType.Inventory:
                     {
                         path += @"\I_Data.json";
                         string json = JsonConvert.SerializeObject((List<Item>)data, Formatting.Indented);
                         File.WriteAllText(path, json);
                         break;
                     }
-                case DataType.Shop:
+                case SaveType.Shop:
                     {
                         path += @"\S_Data.json";
                         string json = JsonConvert.SerializeObject((List<Item>)data, Formatting.Indented);

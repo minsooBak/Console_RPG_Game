@@ -31,8 +31,8 @@ namespace RPG_Game
         public Map()
         {
             player = new Player();
-            inventory = new Inventory();
             itemManager = new ItemManager();
+            inventory = new Inventory();
             shop = new Shop(itemManager.GetItems());
             dungeonManager = new DungeonManager();
 

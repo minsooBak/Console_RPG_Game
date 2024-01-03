@@ -185,14 +185,14 @@ namespace RPG_Game
         {
             if(type == EventType.eGameInit)
             {
-                List<Item>? items = (List<Item>?)Utilities.LoadFile(DataType.Shop);
+                List<Item>? items = (List<Item>?)Utilities.LoadFile(LoadType.Shop);
                 if (items != null)
                     SaleItems = items;
 
             }else if(type == EventType.eGameEnd)
             {
                 if (SaleItems.Count > 0)
-                    Utilities.SaveFile(DataType.Shop, SaleItems);
+                    Utilities.SaveFile(SaveType.Shop, SaleItems);
             }
         }
     }

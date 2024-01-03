@@ -150,7 +150,7 @@ namespace RPG_Game
         {
             if (type == EventType.eGameInit)
             {
-                List<Item>? items = (List<Item>?)Utilities.LoadFile(DataType.Inventory);
+                List<Item>? items = (List<Item>?)Utilities.LoadFile(LoadType.Inventory);
                 if (items != null)
                 {
                     this.items = items;
@@ -164,7 +164,7 @@ namespace RPG_Game
             else if (type == EventType.eGameEnd)
             {
                 if (items.Count > 0)
-                    Utilities.SaveFile(DataType.Inventory, items);
+                    Utilities.SaveFile(SaveType.Inventory, items);
             }
 
         }

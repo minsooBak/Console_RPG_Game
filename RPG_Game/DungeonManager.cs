@@ -12,7 +12,7 @@ namespace RPG_Game
     {
         public DungeonManager() 
         {
-            List<Dungeon>? d = (List<Dungeon>?)Utilities.LoadFile(DataType.Map);
+            List<Dungeon>? d = (List<Dungeon>?)Utilities.LoadFile(LoadType.Map);
             dungeons = d;
         }
         private readonly List<Dungeon> dungeons = [];

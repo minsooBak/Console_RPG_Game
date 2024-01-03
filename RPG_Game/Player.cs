@@ -58,7 +58,7 @@ namespace RPG_Game
 
             Name = name;
             Class = job;
-            gold = _gold ?? 1000;
+            gold = _gold ?? 1500;
             health = _health ?? 100;
             exp = _exp ?? 100;
             level = 1;
@@ -106,7 +106,7 @@ namespace RPG_Game
                     }
                 case EventType.eGameInit:
                     {
-                        PlayerState? state = (PlayerState?)Utilities.LoadFile(DataType.Player);
+                        PlayerState? state = (PlayerState?)Utilities.LoadFile(LoadType.Player);
                         if (state != null)
                             Init(state.Value.name, "전사", state.Value.gold, state.Value.health, state.Value.exp);
 
@@ -122,7 +122,7 @@ namespace RPG_Game
                             health = Health,
                             exp = exp
                         };
-                        Utilities.SaveFile(DataType.Player, playerState);
+                        Utilities.SaveFile(SaveType.Player, playerState);
                         break;
                     }
                 case EventType.eGoldChage:

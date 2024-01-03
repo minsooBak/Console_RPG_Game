@@ -18,7 +18,7 @@ namespace RPG_Game
         private readonly List<Dungeon> dungeons = [];
         public int StageCount { get { return dungeons.Count; } }
         public int GetHp(int value) => dungeons[value].HP;
-
+        public string GetName(int value) => dungeons[value].Name;
         public void ShowDungeon()
         {
             foreach(Dungeon dungeon in dungeons)

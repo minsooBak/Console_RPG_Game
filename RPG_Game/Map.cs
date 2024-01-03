@@ -31,8 +31,8 @@ namespace RPG_Game
         public Map()
         {
             player = new Player();
-            itemManager = new ItemManager();
             inventory = new Inventory();
+            itemManager = new ItemManager();
             shop = new Shop(itemManager.GetItems());
             dungeonManager = new DungeonManager();
 
@@ -544,7 +544,9 @@ namespace RPG_Game
                     }
                     else if (type > 0 && type < dungeonManager.StageCount + 1)
                     {
-                        if (dungeonManager.GetHp(type - 1) > player.Health)
+                        int hp = player.Health;
+                        int gold = player.Gold;
+                        if (dungeonManager.GetHp(type - 1) > hp)
                         {
                             Console.Clear();
                             Console.WriteLine("HP가 부족합니다!");
@@ -554,8 +556,45 @@ namespace RPG_Game
                         if (dungeonManager.SelectDungeon(type - 1, player.DEF, player.ATK))
                         {
                             Console.Clear();
-                            Console.WriteLine("던전 클리어!");
-                            Console.WriteLine("===================================================");
+                            while (true)
+                            {
+                                Console.WriteLine("던전 클리어!");
+                                Console.WriteLine("축하합니다!!");
+                                Console.Write(dungeonManager.GetName(type - 1));
+                                Console.WriteLine(" 던전을 클리어 하셨습니다");
+                                Console.WriteLine();
+                                Console.WriteLine("[탐험 결과]");
+                                Console.WriteLine($"체력 {hp} -> {player.Health}");
+                                Console.WriteLine($"Gold {gold} G -> {player.Gold} G");
+                                Console.WriteLine();
+                                Console.WriteLine("0. 나가기");
+                                Console.WriteLine();
+                                Console.WriteLine("원하시는 행동을 입력해주세요");
+                                Console.Write(">>");
+                                str = Console.ReadLine();
+                                if (str != null && int.TryParse(str, out int b))
+                                {
+                                    type = int.Parse(str);
+                                    if (type == 0)
+                                    {
+                                        mapType = MapType.NONE;
+                                        Console.Clear();
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("잘못된 입력입니다!");
+                                        Console.WriteLine("===================================================");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("잘못된 입력입니다!");
+                                    Console.WriteLine("===================================================");
+                                }
+                            }
                         }
                         else
                         {

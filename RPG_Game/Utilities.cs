@@ -19,13 +19,18 @@ namespace RPG_Game
         Inventory,
         Shop
     }
-    struct PlayerState
+    struct ObjectState
     {
-        public string name;
-        public string job;
-        public int gold;
-        public int health;
-        public int exp;
+        public string Name { get; set; }
+        public string Class {  get; set; }
+        public int Health { get; set; }
+        public int Gold { get; set; }
+        public int Level { get { return EXP / 100; } }
+        public int EXP { get; set; }
+        public float InitATK { get; set; }
+        public int InitDEF { get; set; }
+        public int ATK { get; set; }
+        public int DEF { get; set; }
     }
 
     internal static class Utilities
@@ -53,13 +58,14 @@ namespace RPG_Game
 
                             JObject json = (JObject)JToken.ReadFrom(reader);
 
-                            PlayerState state = new();
-
-                            state.name = json["Name"].ToString();
-                            state.job = json["Job"].ToString();
-                            state.gold = (int)json["Gold"];
-                            state.health = (int)json["Health"];
-                            state.exp = (int)json["EXP"];
+                            ObjectState state = new()
+                            {
+                                Name = json["Name"].ToString(),
+                                Class = json["Job"].ToString(),
+                                Gold = (int)json["Gold"],
+                                Health = (int)json["Health"],
+                                EXP = (int)json["EXP"]
+                            };
 
                             file.Close();
                             return state;
@@ -136,14 +142,14 @@ namespace RPG_Game
                 case SaveType.Player:
                     {
                         path += @"\P_Data.json";
-                        PlayerState state = (PlayerState)data;
+                        ObjectState state = (ObjectState)data;
                         JObject configData = new JObject
                             (
-                            new JProperty("Name", state.name),
-                            new JProperty("Job", state.job),
-                            new JProperty("Gold", state.gold),
-                            new JProperty("Health", state.health),
-                            new JProperty("EXP", state.exp)
+                            new JProperty("Name", state.Name),
+                            new JProperty("Job", state.Class),
+                            new JProperty("Gold", state.Gold),
+                            new JProperty("Health", state.Health),
+                            new JProperty("EXP", state.EXP)
                             );
                         File.WriteAllText(path, JsonConvert.SerializeObject(configData));
                         break;

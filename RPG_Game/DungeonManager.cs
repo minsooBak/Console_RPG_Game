@@ -81,7 +81,7 @@ namespace RPG_Game
 
     class Dungeon
     {
-
+        //몬스터 매니저
         public Dungeon(string name, int stage, int def, int hp, int exp, int gold)
         {
             Name = name;

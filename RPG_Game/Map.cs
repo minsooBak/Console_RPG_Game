@@ -451,8 +451,40 @@ namespace RPG_Game
                         else
                         {
                             Console.Clear();
-                            Console.WriteLine("던전 클리어 실패..");
-                            Console.WriteLine("===================================================");
+                            while (true)
+                            {
+                                Utilities.TextColor("던전 클리어 실패", ConsoleColor.DarkYellow, ConsoleColor.Gray);
+                                Console.Write(dungeonManager.GetName(type - 1));
+                                Console.WriteLine(" 클리어 실패하셨습니다\n");
+                                Console.WriteLine("[탐험 결과]");
+                                Console.WriteLine($"체력 {hp} -> {player.Health}");
+                                Console.WriteLine("\n0. 나가기\n");
+                                Console.WriteLine("원하시는 행동을 입력해주세요");
+                                Console.Write(">>");
+                                str = Console.ReadLine();
+                                if (str != null && int.TryParse(str, out int b))
+                                {
+                                    type = int.Parse(str);
+                                    if (type == 0)
+                                    {
+                                        mapType = MapType.NONE;
+                                        Console.Clear();
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("잘못된 입력입니다!");
+                                        Console.WriteLine("===================================================");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("잘못된 입력입니다!");
+                                    Console.WriteLine("===================================================");
+                                }
+                            }
                         }
                     }
                     else
@@ -473,7 +505,7 @@ namespace RPG_Game
 
         void ShowTown()
         {
-            if(player.Name == null)
+            if(player.ATK == 0)
             {
                 createCharacter = new CreateCharacter();
                 string str = createCharacter.CreatePlayer();

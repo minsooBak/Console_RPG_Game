@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,36 +10,27 @@ namespace RPG_Game
 {
     internal class Player : IListener
     {
-        private int health;
-        private int gold;
-        private int exp;
-        private int level;
-        private int armor;
-        private int power;
-
-        private float initATK;
-        private int initDEF;
-        private int itemATK = 0;
-        private int itemDEF = 0;
-
-        private string? Class { get; set; }
-        public int Level { get { return exp / 100; } }
-        public int EXP { get { return exp % 100; } private set { exp += value; } }
-        public int DEF { get { return armor; } }
-        public int ATK { get { return (int)power; } }
-        public string? Name { get; private set; }
-        public int Gold { get { return gold; }
+        private ObjectState state;
+        private int level = 1;
+        private int itemATK;
+        private int itemDEF;
+        public int ATK { get { return state.ATK; } }
+        public int DEF { get { return state.DEF; } }
+        public int Gold
+        {
+            get { return state.Gold; }
             private set
             {
-                gold = Math.Clamp(value, 0, 999999999);
+                state.Gold = Math.Clamp(value, 0, 999999999);
             }
         }
-        public int Health { get { return health; }
+        public int Health
+        {
+            get { return state.Health; }
             private set
             {
-                health = Math.Clamp(value, 0, 100);
+                state.Health = Math.Clamp(value, 0, 100);
             }
-            
         }
 
         public Player()
@@ -51,46 +43,70 @@ namespace RPG_Game
             EventManager.Instance.AddListener(EventType.eExpChage, this);
         }
 
-        public void Init(string name,string job, int? _gold = null, int? _health = null, int? _exp = null)
+        public void Init(string name,string _class, int? _gold = null, int? _health = null, int? _exp = null)
         {
             if (_health > 100)
                 _health = 100;
 
-            Name = name;
-            Class = job;
-            gold = _gold ?? 1500;
-            health = _health ?? 100;
-            exp = _exp ?? 100;
-            level = 1;
+            state.Name = name;
+            state.Class = _class;
+            state.Gold = _gold ?? 1500;
+            state.Health = _health ?? 100;
+            state.EXP = _exp ?? 100;
 
-            initATK = 1;
-            initDEF = 0;
+            switch(_class)
+            {
+                case "전사":
+                    {
+                        state.InitATK = 1;
+                        state.InitDEF = 2;
+                        break;
+                    }
+                case "마법사":
+                    {
+                        state.InitATK = 3;
+                        state.InitDEF = 0;
+                        break;
+                    }
+                case "궁수":
+                    {
+                        state.InitATK = 2;
+                        state.InitDEF = 1;
+                        break;
+                    }
+                case "도적":
+                    {
+                        state.InitATK = 3;
+                        state.InitDEF = 0;
+                        break;
+                    }
+            }
             LevelCheck();
-            power = power > 1 ? power + (int)initATK : (int)initATK;
-            armor = armor > 1 ? armor + initDEF :  initDEF;
+            state.ATK = ATK > 1 ? ATK + (int)state.InitATK : (int)state.InitATK;
+            state.DEF = DEF > 1 ? DEF + (int)state.InitDEF : (int)state.InitDEF;
         }
 
         public void LevelCheck()
         {
-            int result = Level - level;
-            if (level != Level)
+            int result = state.Level - level;
+            if (level != state.Level)
             {
-                initATK += 0.5f * result;
-                initDEF += 1 * result;
-                level = Level;
+                state.InitATK += 0.5f * result;
+                state.InitDEF += 1 * result;
+                level = state.Level;
             }
             else
-                level = Level;
+                level = state.Level;
 
         }
 
         public void ShowStat()
         {
-            Console.Write($"Lv : {Level}");
-            Console.WriteLine($"\tEXP : {EXP}");
-            Console.WriteLine($"{Name}  ( {Class} )");
-            Console.WriteLine($"공격력 : {power}");
-            Console.WriteLine($"방어력 : {armor}");
+            Console.Write($"Lv : {state.Level}");
+            Console.WriteLine($"\tEXP : {state.EXP % 100}");
+            Console.WriteLine($"{state.Name}  ( {state.Class} )");
+            Console.WriteLine($"공격력 : {ATK}");
+            Console.WriteLine($"방어력 : {DEF}");
             Console.WriteLine($"체력 : {Health}");
             Console.WriteLine($"Gold : {Gold}G");
         }
@@ -106,21 +122,22 @@ namespace RPG_Game
                     }
                 case EventType.eGameInit:
                     {
-                        PlayerState? state = (PlayerState?)Utilities.LoadFile(LoadType.Player);
-                        if (state != null)
-                            Init(state.Value.name, "전사", state.Value.gold, state.Value.health, state.Value.exp);
+                        ObjectState? stateLode = (ObjectState?)Utilities.LoadFile(LoadType.Player);
+                        if (stateLode != null)
+                            Init(stateLode.Value.Name, stateLode.Value.Class, stateLode.Value.Gold, stateLode.Value.Health, stateLode.Value.EXP);
 
                         break;
                     }
                 case EventType.eGameEnd:
                     {
-                        PlayerState playerState = new PlayerState
+                        ObjectState playerState = new ObjectState
                         {
-                            name = Name,
-                            job = Class,
-                            gold = Gold,
-                            health = Health,
-                            exp = exp
+                            Name = state.Name,
+                            Class = state.Class,
+                            Gold = Gold,
+                            Health = Health,
+                            EXP = state.EXP,
+                            
                         };
                         Utilities.SaveFile(SaveType.Player, playerState);
                         break;
@@ -144,15 +161,15 @@ namespace RPG_Game
                                 itemDEF += item.Armor;
                             }
                         }
-                        power = (int)initATK + itemATK;
-                        armor = initDEF + itemDEF;
+                        state.ATK = (int)state.InitATK + itemATK;
+                        state.DEF = state.InitDEF + itemDEF;
 
                         break;
                     }
                 case EventType.eExpChage:
                     {
                         LevelCheck();
-                        EXP = (int)data;
+                        state.EXP += (int)data;
                         LevelCheck();
                         EventManager.Instance.PostEvent(EventType.eItemChage);
 

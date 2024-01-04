@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RPG_Game
 {
-    internal class Createcharacter
+    internal class CreateCharacter
     {
         public string? CreatePlayer()
         {

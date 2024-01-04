@@ -24,7 +24,7 @@ namespace RPG_Game
         private Player player;
         private ItemManager itemManager;
         private DungeonManager dungeonManager;
-        private Createcharacter createcharacter;
+        private CreateCharacter createCharacter;
         private MapType mapType = MapType.NONE;
         public Map()
         {
@@ -475,8 +475,8 @@ namespace RPG_Game
         {
             if(player.Name == null)
             {
-                createcharacter = new Createcharacter();
-                string str = createcharacter.CreatePlayer();
+                createCharacter = new CreateCharacter();
+                string str = createCharacter.CreatePlayer();
                 if (str == null)
                     return;
                 string[] strings = str.Split(" ");

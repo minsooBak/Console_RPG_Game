@@ -37,7 +37,7 @@ namespace RPG_Game
             List<Item>? list = (List<Item>?)Utilities.LoadFile(LoadType.Item);
             items = list.ToArray();
 
-            ItemData? data = (ItemData?)Utilities.LoadFile(LoadType.Inventory);
+            ItemData? data = (ItemData?)Utilities.LoadFile(LoadType.ItemData);
             inventory = [];
             saleItem = [];
             if(data != null)

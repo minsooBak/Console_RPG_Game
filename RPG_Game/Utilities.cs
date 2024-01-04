@@ -12,7 +12,6 @@ namespace RPG_Game
     }
     enum LoadType
     {
-        NONE,
         Player,
         Map,
         Item,

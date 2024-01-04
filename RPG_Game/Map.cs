@@ -23,8 +23,6 @@ namespace RPG_Game
     {
         private Player player;
         private ItemManager itemManager;
-        //private Inventory inventory;
-        //private Shop shop;
         private DungeonManager dungeonManager;
         private MapType mapType = MapType.NONE;
 
@@ -32,8 +30,6 @@ namespace RPG_Game
         {
             player = new Player();
             itemManager = new ItemManager();
-            //inventory = new Inventory();
-            //shop = new Shop(itemManager.GetItems());
             dungeonManager = new DungeonManager();
 
             EventManager.Instance.PostEvent(EventType.eGameInit, "스파르타");

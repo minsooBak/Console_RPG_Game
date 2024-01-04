@@ -66,8 +66,8 @@ namespace RPG_Game
             initATK = 1;
             initDEF = 0;
             LevelCheck();
-            power = (int)initATK;
-            armor = initDEF;
+            power = power > 1 ? power + (int)initATK : (int)initATK;
+            armor = armor > 1 ? armor + initDEF :  initDEF;
         }
 
         public void LevelCheck()
@@ -132,8 +132,9 @@ namespace RPG_Game
                     }
                 case EventType.eItemChage:
                     {
-                        List<Item> items = (List<Item>)data;
-                        if(items != null)
+                        List<Item> items = [];
+                        items = (List<Item>)data;
+                        if (items != null)
                         {
                             itemATK = 0;
                             itemDEF = 0;

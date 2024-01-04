@@ -22,18 +22,18 @@ namespace RPG_Game
     internal class Map
     {
         private Player player;
-        private Inventory inventory;
         private ItemManager itemManager;
-        private Shop shop;
+        //private Inventory inventory;
+        //private Shop shop;
         private DungeonManager dungeonManager;
         private MapType mapType = MapType.NONE;
 
         public Map()
         {
             player = new Player();
-            inventory = new Inventory();
             itemManager = new ItemManager();
-            shop = new Shop(itemManager.GetItems());
+            //inventory = new Inventory();
+            //shop = new Shop(itemManager.GetItems());
             dungeonManager = new DungeonManager();
 
             EventManager.Instance.PostEvent(EventType.eGameInit, "스파르타");
@@ -234,7 +234,7 @@ namespace RPG_Game
             {
                 Utilities.TextColor("인벤토리", ConsoleColor.DarkYellow, ConsoleColor.Gray);
                 Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
-                inventory.ShowInventory();
+                itemManager.ShowInventory();
                 Console.WriteLine("\n1. 장착 관리");
                 Console.WriteLine("0. 나가기\n");
                 Console.WriteLine("원하시는 행동을 입력해주세요");
@@ -251,7 +251,7 @@ namespace RPG_Game
                         {
                             Utilities.TextColor("인벤토리 - 장착 관리", ConsoleColor.DarkYellow, ConsoleColor.Gray);
                             Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
-                            inventory.ShowEquipped();
+                            itemManager.ShowInventory(true);
                             Console.WriteLine("\n0. 나가기\n");
                             Console.WriteLine("장착할 아이템을 입력해주세요");
                             Console.Write(">>");
@@ -260,9 +260,9 @@ namespace RPG_Game
                             {
                                 type = int.Parse(str);
                                 //장착관리 시작
-                                if (type > 0 && type < inventory.ItemsCount + 1)
+                                if (type > 0 && type < itemManager.GetInventorySize + 1)
                                 {
-                                    inventory.ItemEquip(type - 1);
+                                    itemManager.ItemEquip(type - 1);
                                     Console.Clear();
                                     continue;
                                 }
@@ -314,7 +314,7 @@ namespace RPG_Game
                 Utilities.TextColor("상점", ConsoleColor.DarkYellow, ConsoleColor.Gray);
                 Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.\n");
                 Console.WriteLine($"[보유골드]\n{player.Gold} G\n");
-                shop.ShowShop();
+                itemManager.ShowShop();
                 Console.WriteLine("\n1. 아이템 구매");
                 Console.WriteLine("2. 아이템 판매");
                 Console.WriteLine("0. 나가기\n");
@@ -337,7 +337,7 @@ namespace RPG_Game
                             Utilities.TextColor("상점 - 아이템 구매", ConsoleColor.DarkYellow, ConsoleColor.Gray);
                             Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.\n");
                             Console.WriteLine($"[보유골드]\n{player.Gold} G\n");
-                            shop.ShowSellingItems();
+                            itemManager.ShowShop(true);
                             Console.WriteLine("\n0. 나가기\n");
                             Console.WriteLine("구매할 아이템을 입력해주세요");
                             Console.Write(">>");
@@ -345,14 +345,14 @@ namespace RPG_Game
                             if (str != null && int.TryParse(str, out int a))
                             {
                                 type = int.Parse(str);
-                                if (type > 0 && type < itemManager.GetItems().Length + 1)
+                                if (type > 0 && type < itemManager.GetShopSize + 1)
                                 {
-                                    Item item = shop.BuyItem(type - 1, player.Gold);
+                                    bool item = itemManager.BuyItem(type - 1, player.Gold);
 
-                                    if (item != null)
+                                    if (item)
                                     {
-                                        inventory.AddItem(item);
                                         Console.Clear();
+                                        continue;
                                     }
                                     else
                                     {
@@ -390,7 +390,7 @@ namespace RPG_Game
                             Utilities.TextColor("상점 - 아이템 판매", ConsoleColor.DarkYellow, ConsoleColor.Gray);
                             Console.WriteLine("필요 없는 아이템을 팔 수 있는 상점입니다.\n");
                             Console.WriteLine($"[보유골드]\n{player.Gold} G\n");
-                            inventory.ShowEquipped(true);
+                            itemManager.ShowInventory(false, true);
                             Console.WriteLine("\n0. 나가기\n");
                             Console.WriteLine("판매할 아이템을 입력해주세요");
                             Console.Write(">>");
@@ -398,10 +398,10 @@ namespace RPG_Game
                             if (str != null && int.TryParse(str, out int a))
                             {
                                 type = int.Parse(str);
-                                if (type > 0 && type < itemManager.GetItems().Length + 1)
+                                if (type > 0 && type < itemManager.GetShopSize + 1)
                                 {
                                     Console.Clear();
-                                    shop.SaleItem(inventory.SaleItem(type - 1));
+                                    itemManager.SaleItem(type - 1);
                                     continue;
                                 }
                                 else if (type == 0)

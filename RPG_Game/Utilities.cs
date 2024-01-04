@@ -8,8 +8,7 @@ namespace RPG_Game
     {
         NONE,
         Player,
-        Inventory,
-        Shop
+        ItemData
     }
     enum LoadType
     {
@@ -55,7 +54,7 @@ namespace RPG_Game
                             JObject json = (JObject)JToken.ReadFrom(reader);
 
                             PlayerState state = new();
-                            
+
                             state.name = json["Name"].ToString();
                             state.job = json["Job"].ToString();
                             state.gold = (int)json["Gold"];
@@ -87,16 +86,8 @@ namespace RPG_Game
                         break;
                     }
                 case LoadType.Item:
-                case LoadType.Inventory:
-                case LoadType.Shop:
                     {
-                        string? path;
-                        if (type == LoadType.Shop)
-                            path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\S_Data.json";
-                        else if (type == LoadType.Inventory)
-                            path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\I_Data.json";
-                        else
-                            path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Item_Data.json";
+                        string? path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Item_Data.json";
                         if (File.Exists(path) == false)
                             return null;
                         StreamReader? file = File.OpenText(path);
@@ -108,6 +99,26 @@ namespace RPG_Game
                             string? str = JsonConvert.SerializeObject(json);
                             file.Close();
                             return JsonConvert.DeserializeObject<List<Item>>(str);
+
+                        }
+
+                        return null;
+                    }
+                case LoadType.Shop:
+                case LoadType.Inventory:
+                    {
+                        string? path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\I_Data.json";
+                        if (File.Exists(path) == false)
+                            return null;
+                        StreamReader? file = File.OpenText(path);
+                        if (file != null)
+                        {
+                            JsonTextReader reader = new JsonTextReader(file);
+
+                            JObject json = (JObject)JToken.ReadFrom(reader);
+                            string? str = JsonConvert.SerializeObject(json);
+                            file.Close();
+                            return JsonConvert.DeserializeObject<ItemData>(str);
 
                         }
                         return null;
@@ -137,17 +148,10 @@ namespace RPG_Game
                         File.WriteAllText(path, JsonConvert.SerializeObject(configData));
                         break;
                     }
-                case SaveType.Inventory:
+                case SaveType.ItemData:
                     {
                         path += @"\I_Data.json";
-                        string json = JsonConvert.SerializeObject((List<Item>)data, Formatting.Indented);
-                        File.WriteAllText(path, json);
-                        break;
-                    }
-                case SaveType.Shop:
-                    {
-                        path += @"\S_Data.json";
-                        string json = JsonConvert.SerializeObject((List<Item>)data, Formatting.Indented);
+                        string json = JsonConvert.SerializeObject((ItemData)data, Formatting.Indented);
                         File.WriteAllText(path, json);
                         break;
                     }

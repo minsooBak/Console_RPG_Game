@@ -8,6 +8,7 @@ public enum EventType
 {
     eGameInit,
     eGameEnd,
+    eItemGet,
     eItemChage,
     eHealthChage,
     eGoldChage,

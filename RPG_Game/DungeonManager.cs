@@ -22,25 +22,9 @@ namespace RPG_Game
         public string GetName(int value) => dungeons[value].Name;
         public void ShowDungeon()
         {
-            foreach(Dungeon dungeon in dungeons)
+            foreach (Dungeon dungeon in dungeons)
             {
-                if(dungeon.DEF < 10 || dungeon.EXP < 100) 
-                {
-                    if (dungeon.DEF < 10 && dungeon.EXP > 99)
-                    {
-                        Console.WriteLine($"{dungeon.Stage}. {dungeon.Name} | " + "0" + $"{dungeon.DEF} | {dungeon.HP} | {dungeon.EXP} | {dungeon.Gold}");
-                        continue;
-                    }
-                    if (dungeon.EXP < 100 && dungeon.DEF > 9)
-                    {
-                        Console.WriteLine($"{dungeon.Stage}. {dungeon.Name} | {dungeon.DEF} | {dungeon.HP} | " + "0" + $"{dungeon.EXP} | {dungeon.Gold}");
-                        continue;
-                    }
-                    Console.WriteLine($"{dungeon.Stage}. {dungeon.Name} | "+"0"+$"{dungeon.DEF} | {dungeon.HP} | " + "0" + $"{dungeon.EXP} | {dungeon.Gold}");
-                    continue;
-                }
-
-                Console.WriteLine($"{dungeon.Stage}. {dungeon.Name} | {dungeon.DEF} | {dungeon.HP} | {dungeon.EXP} | {dungeon.Gold}");
+                Console.WriteLine($"{dungeon.Stage}. {dungeon.Name} | {(dungeon.DEF < 10 ? " " + dungeon.DEF : dungeon.DEF)} | {dungeon.HP} | {(dungeon.EXP < 100 ? " " + dungeon.EXP : dungeon.EXP)} | {dungeon.Gold}");
             }
         }
 
@@ -81,7 +65,6 @@ namespace RPG_Game
 
     class Dungeon
     {
-        //몬스터 매니저
         public Dungeon(string name, int stage, int def, int hp, int exp, int gold)
         {
             Name = name;

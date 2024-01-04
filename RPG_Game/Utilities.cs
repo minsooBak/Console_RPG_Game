@@ -15,8 +15,7 @@ namespace RPG_Game
         Player,
         Map,
         Item,
-        Inventory,
-        Shop
+        ItemData
     }
     struct ObjectState
     {
@@ -109,8 +108,7 @@ namespace RPG_Game
 
                         return null;
                     }
-                case LoadType.Shop:
-                case LoadType.Inventory:
+                case LoadType.ItemData:
                     {
                         string? path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\I_Data.json";
                         if (File.Exists(path) == false)

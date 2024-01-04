@@ -8,8 +8,7 @@ namespace RPG_Game
         static void Main(string[] args)
         {
             Map map = new();
-            if (map.CreatePlayer())
-                map.DrawMap();
+            map.DrawMap();
         }
     }
 }

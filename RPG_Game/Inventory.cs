@@ -95,10 +95,10 @@ namespace RPG_Game
                 }
                 if(item.Type == ItemType.Weapon) 
                 {
-                    Console.WriteLine($"{item.Name} | 공격력 +{item.Power} | {item.Description}");
+                    Console.WriteLine($"{item.Name} | 공격력 +{(item.Power < 10 ? " " + item.Power : item.Power)} | {item.Description}");
                 }else
                 {
-                    Console.WriteLine($"{item.Name} | 방어력 +{item.Armor} | {item.Description}");
+                    Console.WriteLine($"{item.Name} | 방어력 +{(item.Armor < 10 ? " " + item.Armor : item.Armor)} | {item.Description}");
                 }
             }
         }
@@ -123,24 +123,13 @@ namespace RPG_Game
 
                 if(isSale)
                 {
-                    if (item.Type == ItemType.Weapon)
-                    {
-                        Console.WriteLine($"{item.Name} | 공격력 +{item.Power} | {item.Description} | {item.Cost}G");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{item.Name} | 방어력 +{item.Armor} | {item.Description} | {item.Cost}G");
-                    }
-                }else
+                    Console.WriteLine($"{item.Name}{(item.Power > 0 ? " | 공격력 +" + (item.Power < 10 ? " " + item.Power : item.Power) : "")}" +
+                        $"{(item.Armor > 0 ? " | 방어력 +" + (item.Armor < 10 ? " " + item.Armor : item.Armor) : "")} | {item.Description} | {item.Cost}G");
+                }
+                else
                 {
-                    if (item.Type == ItemType.Weapon)
-                    {
-                        Console.WriteLine($"{item.Name} | 공격력 +{item.Power} | {item.Description}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"{item.Name} | 방어력 +{item.Armor} | {item.Description}");
-                    }
+                    Console.WriteLine($"{item.Name}{(item.Power > 0 ? " | 공격력 +" + (item.Power < 10 ? " " + item.Power : item.Power) : "")}" +
+                        $"{(item.Armor > 0 ? " | 방어력 +" + (item.Armor < 10 ? " " + item.Armor : item.Armor) : "")} | {item.Description}");
                 }
                 
             }
@@ -154,9 +143,7 @@ namespace RPG_Game
                 if (items != null)
                 {
                     this.items = items;
-                    foreach (Item item in items)
-                        if (item.isEquipped)
-                            eItems.Add(item);
+                    eItems = items.FindAll(x => x.isEquipped)??[];
 
                     EventManager.Instance.PostEvent(EventType.eItemChage, eItems);
                 }

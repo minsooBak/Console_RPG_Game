@@ -24,63 +24,25 @@ namespace RPG_Game
             Console.WriteLine("[아이템 목록]");
             foreach (Item item in ShopItems)
             {
-                
                 Console.Write("- ");
-                bool isBuy = false;
-                switch (item.Type)
+
+                if(SaleItems.Count == 0)
                 {
-                    case ItemType.Armor:
-                    case ItemType.Head:
-                        {
-                            if (SaleItems.Count == 0)
-                            {
-                                Console.WriteLine($"{item.Name} | 방어력 + {item.Armor} | {item.Description} | {item.Cost}G");
-                                break;
-                            }
-                            else
-                            {
-                                foreach (Item item2 in SaleItems)
-                                    if (item2.Name == item.Name)
-                                    {
-                                        Console.WriteLine($"{item.Name} | 방어력 + {item.Armor} | {item.Description} | 구매완료");
-                                        isBuy = true;
-                                        break;
-                                    }
-                                if (isBuy)
-                                    break;
-
-                                Console.WriteLine($"{item.Name} | 방어력 + {item.Armor} | {item.Description} | {item.Cost}G");
-                            }
-                            break;
-                        }
-                    case ItemType.Weapon:
-                        {
-                            if (SaleItems.Count == 0)
-                            {
-                                Console.WriteLine($"{item.Name} | 공격력 + {item.Power} | {item.Description} | {item.Cost}G");
-                                break;
-                            }
-                            else
-                            {
-                                foreach (Item item2 in SaleItems)
-                                    if (item2.Name == item.Name)
-                                    {
-                                        Console.WriteLine($"{item.Name} | 공격력 + {item.Power} | {item.Description} | 구매완료");
-                                        isBuy = true;
-                                        break;
-                                    }
-                                if (isBuy)
-                                    break;
-
-                                Console.WriteLine($"{item.Name} | 공격력 + {item.Power} | {item.Description} | {item.Cost}G");
-                            }
-                            break;
-                        }
-                    default:
-                        {
-                            Debug.WriteLine("Shop Sell Error");
-                            break;
-                        }
+                    Console.WriteLine($"{item.Name}{(item.Power > 0 ? " | 공격력 +" + (item.Power < 10 ? " " + item.Power : item.Power) : "")}" +
+                        $"{(item.Armor > 0 ? " | 방어력 +" + (item.Armor < 10 ? " " + item.Armor : item.Armor) : "")} | {item.Description} | {item.Cost}G");
+                }else
+                {
+                    Item? i = SaleItems.Find(x => x.Name == item.Name);
+                    if (i != null)
+                    {
+                        Console.WriteLine($"{item.Name}{(item.Power > 0 ? " | 공격력 +" + (item.Power < 10 ? " " + item.Power : item.Power) : "")}" +
+                            $"{(item.Armor > 0 ? " | 방어력 +" + (item.Armor < 10 ? " " + item.Armor : item.Armor) : "")} | {item.Description} | 구매 완료");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{item.Name}{(item.Power > 0 ? " | 공격력 +" + (item.Power < 10 ? " " + item.Power : item.Power) : "")}" +
+                            $"{(item.Armor > 0 ? " | 방어력 +" + (item.Armor < 10 ? " " + item.Armor : item.Armor) : "")} | {item.Description} | {item.Cost}G");
+                    }
                 }
             }
         }
@@ -89,65 +51,30 @@ namespace RPG_Game
         {
             Console.WriteLine("[아이템 목록]");
             int count = 0;
+
             foreach (Item item in ShopItems)
             {
                 count++;
                 Console.Write($"- {count} ");
-                bool isBuy = false;
-                switch (item.Type)
+
+                if (SaleItems.Count == 0)
                 {
-                    case ItemType.Armor:
-                    case ItemType.Head:
-                        {
-                            if (SaleItems.Count == 0)
-                            {
-                                Console.WriteLine($"{item.Name} | 방어력 + {item.Armor} | {item.Description} | {item.Cost}G");
-                                break;
-                            }
-                            else
-                            {
-                                foreach (Item item2 in SaleItems)
-                                    if (item2.Name == item.Name)
-                                    {
-                                        Console.WriteLine($"{item.Name} | 방어력 + {item.Armor} | {item.Description} | 구매완료");
-                                        isBuy = true;
-                                        break;
-                                    }
-                                if (isBuy)
-                                    break;
-
-                                Console.WriteLine($"{item.Name} | 방어력 + {item.Armor} | {item.Description} | {item.Cost}G");
-                            }
-                            break;
-                        }
-                    case ItemType.Weapon:
-                        {
-                            if (SaleItems.Count == 0)
-                            {
-                                Console.WriteLine($"{item.Name} | 공격력 + {item.Power} | {item.Description} | {item.Cost}G");
-                                break;
-                            }
-                            else
-                            {
-                                foreach (Item item2 in SaleItems)
-                                    if (item2.Name == item.Name)
-                                    {
-                                        Console.WriteLine($"{item.Name} | 공격력 + {item.Power} | {item.Description} | 구매완료");
-                                        isBuy = true;
-                                        break;
-                                    }
-                                if(isBuy)
-                                    break;
-
-                                Console.WriteLine($"{item.Name} | 공격력 + {item.Power} | {item.Description} | {item.Cost}G");
-                            }
-                            break;
-                        }
-                    default:
-                        {
-                            Debug.WriteLine("Shop Sell Error");
-                            break;
-                        }
+                    Console.WriteLine($"{item.Name}{(item.Power > 0 ? " | 공격력 +" + (item.Power < 10 ? " " + item.Power : item.Power) : "")}" +
+                        $"{(item.Armor > 0 ? " | 방어력 +" + (item.Armor < 10 ? " " + item.Armor : item.Armor) : "")} | {item.Description} | {item.Cost}G");
+                }
+                else
+                {
+                    Item? i = SaleItems.Find(x => x.Name == item.Name);
+                    if (i != null)
+                    {
+                        Console.WriteLine($"{item.Name}{(item.Power > 0 ? " | 공격력 +" + (item.Power < 10 ? " " + item.Power : item.Power) : "")}" +
+                            $"{(item.Armor > 0 ? " | 방어력 +" + (item.Armor < 10 ? " " + item.Armor : item.Armor) : "")} | {item.Description} | 구매 완료");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{item.Name}{(item.Power > 0 ? " | 공격력 +" + (item.Power < 10 ? " " + item.Power : item.Power) : "")}" +
+                            $"{(item.Armor > 0 ? " | 방어력 +" + (item.Armor < 10 ? " " + item.Armor : item.Armor) : "")} | {item.Description} | {item.Cost}G");
+                    }
                 }
             }
 

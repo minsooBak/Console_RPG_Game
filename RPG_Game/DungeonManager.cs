@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -67,7 +68,7 @@ namespace RPG_Game
                 }
             }else
             {
-                int hp = new Random().Next((dungeons[stage].HP - 5) + _def, dungeons[stage].HP + _def);
+                int hp = Math.Clamp(new Random().Next((dungeons[stage].HP - 5) + _def, dungeons[stage].HP + _def), 1, 40);
                 int gold = new Random().Next(atk, atk * 2);
                 gold = dungeons[stage].Gold * (gold / 100);
                 EventManager.Instance.PostEvent(EventType.eGoldChage, dungeons[stage].Gold + gold);

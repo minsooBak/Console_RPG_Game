@@ -80,10 +80,9 @@ namespace RPG_Game
         {
             while (true)
             {
-                Console.WriteLine("RPG_GAME에 오신것을 환영합니다!");
-                Console.WriteLine("이름을 정해주세요!");
-                Console.WriteLine();
-                Console.WriteLine("당신의 이름은? [※주의 : 띄워쓰기 금지 / 10글자 이내]");
+                Utilities.TextColor("캐릭터 생성 - 이름", ConsoleColor.DarkYellow, ConsoleColor.Gray);
+                Console.WriteLine("이름을 정해주세요!\n");
+                Console.WriteLine("당신의 이름은? [이름 생성 규칙 : 띄워쓰기 금지 / 10글자 이내]");
                 Console.Write(">>");
                 string? str = Console.ReadLine();
                 bool isCheck = Regex.IsMatch(str, @"[^a-zA-Z0-9가-힣]");
@@ -104,9 +103,8 @@ namespace RPG_Game
         {
             while (true)
             {
-                Console.WriteLine("RPG_GAME에 오신것을 환영합니다!");
-                Console.WriteLine("직업을 정해주세요!");
-                Console.WriteLine();
+                Utilities.TextColor("캐릭터 생성 - 직업", ConsoleColor.DarkYellow, ConsoleColor.Gray);
+                Console.WriteLine("직업을 정해주세요!\n");
                 Console.WriteLine("1. 전사");
                 Console.WriteLine("2. 마법사");
                 Console.WriteLine("3. 궁수");
@@ -154,12 +152,9 @@ namespace RPG_Game
             while (true)
             {
                 Console.WriteLine("RPG_GAME에 오신것을 환영합니다!");
-                Console.WriteLine("이곳은 캐릭터 생성을 하는 곳 입니다.");
-                Console.WriteLine();
+                Console.WriteLine("이곳은 캐릭터 생성을 하는 곳 입니다.\n");
                 Console.WriteLine("1. 캐릭터 생성");
-                Console.WriteLine();
-                Console.WriteLine("0. 종료");
-                Console.WriteLine();
+                Console.WriteLine("\n0. 종료\n");
                 Console.WriteLine("원하시는 행동을 입력해주세요");
                 Console.Write(">>");
                 string? str = Console.ReadLine();
@@ -201,10 +196,10 @@ namespace RPG_Game
         {
             while (true)
             {
+                Utilities.TextColor("상태 보기", ConsoleColor.DarkYellow, ConsoleColor.Gray);
+                Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
                 player.ShowStat();
-                Console.WriteLine();
-                Console.WriteLine("0.나가기");
-                Console.WriteLine();
+                Console.WriteLine("\n0.나가기\n");
                 Console.WriteLine("원하시는 행동을 입력해주세요");
                 Console.Write(">>");
                 string? str = Console.ReadLine();
@@ -237,14 +232,11 @@ namespace RPG_Game
         {
             while (true)
             {
-                Console.WriteLine("인벤토리");
-                Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
-                Console.WriteLine();
+                Utilities.TextColor("인벤토리", ConsoleColor.DarkYellow, ConsoleColor.Gray);
+                Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
                 inventory.ShowInventory();
-                Console.WriteLine();
-                Console.WriteLine("1. 장착 관리");
-                Console.WriteLine("0. 나가기");
-                Console.WriteLine();
+                Console.WriteLine("\n1. 장착 관리");
+                Console.WriteLine("0. 나가기\n");
                 Console.WriteLine("원하시는 행동을 입력해주세요");
                 Console.Write(">>");
 
@@ -257,13 +249,10 @@ namespace RPG_Game
                         Console.Clear();
                         while (true)
                         {
-                            Console.WriteLine("인벤토리");
-                            Console.WriteLine("보유 중인 아이템을 장착할 수 있습니다.");
-                            Console.WriteLine();
+                            Utilities.TextColor("인벤토리 - 장착 관리", ConsoleColor.DarkYellow, ConsoleColor.Gray);
+                            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
                             inventory.ShowEquipped();
-                            Console.WriteLine();
-                            Console.WriteLine("0. 나가기");
-                            Console.WriteLine();
+                            Console.WriteLine("\n0. 나가기\n");
                             Console.WriteLine("장착할 아이템을 입력해주세요");
                             Console.Write(">>");
                             str = Console.ReadLine();
@@ -322,16 +311,13 @@ namespace RPG_Game
         {
             while (true)
             {
-                Console.WriteLine("상점 - 아이템 구매");
-                Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
-                Console.WriteLine();
+                Utilities.TextColor("상점", ConsoleColor.DarkYellow, ConsoleColor.Gray);
+                Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.\n");
                 Console.WriteLine($"[보유골드]\n{player.Gold} G\n");
                 shop.ShowShop();
-                Console.WriteLine();
-                Console.WriteLine("1. 아이템 구매");
+                Console.WriteLine("\n1. 아이템 구매");
                 Console.WriteLine("2. 아이템 판매");
-                Console.WriteLine("0. 나가기");
-                Console.WriteLine();
+                Console.WriteLine("0. 나가기\n");
                 Console.WriteLine("원하시는 행동을 입력해주세요");
                 Console.Write(">>");
                 string? str = Console.ReadLine();
@@ -348,14 +334,11 @@ namespace RPG_Game
                         Console.Clear();
                         while (true)
                         {
-                            Console.WriteLine("상점 - 아이템 구매");
-                            Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
-                            Console.WriteLine();
+                            Utilities.TextColor("상점 - 아이템 구매", ConsoleColor.DarkYellow, ConsoleColor.Gray);
+                            Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.\n");
                             Console.WriteLine($"[보유골드]\n{player.Gold} G\n");
                             shop.ShowSellingItems();
-                            Console.WriteLine();
-                            Console.WriteLine("0. 나가기");
-                            Console.WriteLine();
+                            Console.WriteLine("\n0. 나가기\n");
                             Console.WriteLine("구매할 아이템을 입력해주세요");
                             Console.Write(">>");
                             str = Console.ReadLine();
@@ -404,14 +387,11 @@ namespace RPG_Game
                         Console.Clear();
                         while (true)
                         {
-                            Console.WriteLine("상점 - 아이템 판매");
-                            Console.WriteLine("필요 없는 아이템을 팔 수 있는 상점입니다.");
-                            Console.WriteLine();
+                            Utilities.TextColor("상점 - 아이템 판매", ConsoleColor.DarkYellow, ConsoleColor.Gray);
+                            Console.WriteLine("필요 없는 아이템을 팔 수 있는 상점입니다.\n");
                             Console.WriteLine($"[보유골드]\n{player.Gold} G\n");
                             inventory.ShowEquipped(true);
-                            Console.WriteLine();
-                            Console.WriteLine("0. 나가기");
-                            Console.WriteLine();
+                            Console.WriteLine("\n0. 나가기\n");
                             Console.WriteLine("판매할 아이템을 입력해주세요");
                             Console.Write(">>");
                             str = Console.ReadLine();
@@ -464,14 +444,12 @@ namespace RPG_Game
         {
             while (true)
             {
-                Console.WriteLine("휴식터에 오신것을 환영합니다!");
-                Console.WriteLine();
+                Utilities.TextColor("휴식하기", ConsoleColor.DarkYellow, ConsoleColor.Gray);
+                Console.WriteLine($"500G를 내면 체력을 회복할 수 있습니다\n");
                 Console.WriteLine($"[HP]\n{player.Health} G");
                 Console.WriteLine($"[보유골드]\n{player.Gold} G\n");
-                Console.WriteLine();
-                Console.WriteLine("1.휴식하기(200G)");
-                Console.WriteLine("0.나가기");
-                Console.WriteLine();
+                Console.WriteLine("1.휴식하기(500G)");
+                Console.WriteLine("0.나가기\n");
                 Console.WriteLine("원하시는 행동을 입력해주세요");
                 Console.Write(">>");
                 string? str = Console.ReadLine();
@@ -486,10 +464,10 @@ namespace RPG_Game
                     }
                     else if (type == 1)
                     {
-                        if (player.Gold > 200 && player.Health <= 99)
+                        if (player.Gold > 500 && player.Health <= 99)
                         {
                             Console.Clear();
-                            EventManager.Instance.PostEvent(EventType.eGoldChage, -200);
+                            EventManager.Instance.PostEvent(EventType.eGoldChage, -500);
                             EventManager.Instance.PostEvent(EventType.eHealthChage, +10);
                             continue;
                         }
@@ -521,15 +499,13 @@ namespace RPG_Game
         {
             while (true)
             {
-                Console.WriteLine("던전에 오신것을 환영합니다!");
-                Console.WriteLine();
+                Utilities.TextColor("던전 입장", ConsoleColor.DarkYellow, ConsoleColor.Gray);
+                Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\n");
                 player.ShowStat();
-                Console.WriteLine();
-                Console.WriteLine("[던전 목록]");
+                Console.WriteLine("\n[던전 목록]");
                 Console.WriteLine("\tName   | DEF| HP | EXP | GOLD");
                 dungeonManager.ShowDungeon();
-                Console.WriteLine("0.나가기");
-                Console.WriteLine();
+                Console.WriteLine("0. 나가기\n");
                 Console.WriteLine("원하시는 행동을 입력해주세요");
                 Console.Write(">>");
                 string? str = Console.ReadLine();
@@ -558,17 +534,14 @@ namespace RPG_Game
                             Console.Clear();
                             while (true)
                             {
-                                Console.WriteLine("던전 클리어!");
+                                Utilities.TextColor("던전 클리어", ConsoleColor.DarkYellow, ConsoleColor.Gray);
                                 Console.WriteLine("축하합니다!!");
                                 Console.Write(dungeonManager.GetName(type - 1));
-                                Console.WriteLine(" 던전을 클리어 하셨습니다");
-                                Console.WriteLine();
+                                Console.WriteLine(" 던전을 클리어 하셨습니다\n");
                                 Console.WriteLine("[탐험 결과]");
                                 Console.WriteLine($"체력 {hp} -> {player.Health}");
                                 Console.WriteLine($"Gold {gold} G -> {player.Gold} G");
-                                Console.WriteLine();
-                                Console.WriteLine("0. 나가기");
-                                Console.WriteLine();
+                                Console.WriteLine("\n0. 나가기\n");
                                 Console.WriteLine("원하시는 행동을 입력해주세요");
                                 Console.Write(">>");
                                 str = Console.ReadLine();
@@ -624,16 +597,13 @@ namespace RPG_Game
             while (true)
             {
                 Console.WriteLine("스파르타 마을에 오신것을 환영합니다!");
-                Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
-                Console.WriteLine();
+                Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.\n");
                 Console.WriteLine("1. 상태 보기");
                 Console.WriteLine("2. 인벤토리");
                 Console.WriteLine("3. 상점");
                 Console.WriteLine("4. 휴식");
                 Console.WriteLine("5. 던전");
-                Console.WriteLine();
-                Console.WriteLine("0. 종료 및 저장");
-                Console.WriteLine();
+                Console.WriteLine("\n0. 종료 및 저장\n");
                 Console.WriteLine("원하시는 행동을 입력해주세요");
                 Console.Write(">>");
 

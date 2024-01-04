@@ -31,6 +31,13 @@ namespace RPG_Game
 
     internal static class Utilities
     {
+        public static void TextColor(string str, ConsoleColor color1, ConsoleColor color2)
+        {
+            Console.ForegroundColor = color1;
+            Console.WriteLine(str);
+            Console.ForegroundColor = color2;
+        }
+
         public static object? LoadFile(LoadType type)
         {
             switch (type)

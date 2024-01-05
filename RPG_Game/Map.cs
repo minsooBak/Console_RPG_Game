@@ -32,7 +32,7 @@ namespace RPG_Game
             player = new Player();
             itemManager = new ItemManager();
             dungeonManager = new DungeonManager();
-            EventManager.Instance.PostEvent(EventType.eGameInit, "스파르타");
+            EventManager.Instance.PostEvent(EventType.eGameInit);
         }
 
         public void DrawMap()

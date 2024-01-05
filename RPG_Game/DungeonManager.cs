@@ -20,11 +20,11 @@ namespace RPG_Game
         public int StageCount { get { return dungeons.Count; } }
         public int GetHp(int value) => dungeons[value].HP;
         public string GetName(int value) => dungeons[value].Name;
-        public void ShowDungeon()
+        public void ShowDungeon(int atk)
         {
             foreach (Dungeon dungeon in dungeons)
             {
-                Console.WriteLine($"{dungeon.Stage}. {dungeon.Name} | {(dungeon.DEF < 10 ? " " + dungeon.DEF : dungeon.DEF)} | {dungeon.HP} | {(dungeon.EXP < 100 ? " " + dungeon.EXP : dungeon.EXP)} | {dungeon.Gold}");
+                Console.WriteLine($"{dungeon.Stage}. {dungeon.Name} | {(dungeon.DEF < 10 ? " " + dungeon.DEF : dungeon.DEF)} | {dungeon.HP} | {(dungeon.EXP < 100 ? " " + dungeon.EXP : dungeon.EXP)} | {dungeon.Gold} + {(int)(dungeon.Gold * (atk / 100f))} ~ {(int)(dungeon.Gold * ((atk * 2) / 100f))}");
             }
         }
 
@@ -54,7 +54,7 @@ namespace RPG_Game
             {
                 int hp = Math.Clamp(new Random().Next((dungeons[stage].HP - 5) + _def, dungeons[stage].HP + _def), 1, 40);
                 int gold = new Random().Next(atk, atk * 2);
-                gold = dungeons[stage].Gold * (gold / 100);
+                gold = (int)(dungeons[stage].Gold * (gold / 100f));
                 EventManager.Instance.PostEvent(EventType.eGoldChage, dungeons[stage].Gold + gold);
                 EventManager.Instance.PostEvent(EventType.eExpChage, dungeons[stage].EXP);
                 EventManager.Instance.PostEvent(EventType.eHealthChage, hp * -1);

@@ -325,7 +325,7 @@ namespace RPG_Game
             {
                 Utilities.TextColor("휴식하기", ConsoleColor.DarkYellow, ConsoleColor.Gray);
                 Console.WriteLine($"500G를 내면 체력을 회복할 수 있습니다\n");
-                Console.WriteLine($"[HP]\n{player.Health} G");
+                Console.WriteLine($"[HP]\n{player.Health}");
                 Console.WriteLine($"[보유골드]\n{player.Gold} G\n");
                 Console.WriteLine("1.휴식하기(500G)");
                 Console.WriteLine("0.나가기\n");
@@ -383,7 +383,7 @@ namespace RPG_Game
                 player.ShowStat();
                 Console.WriteLine("\n[던전 목록]");
                 Console.WriteLine("\tName   | DEF| HP | EXP | GOLD");
-                dungeonManager.ShowDungeon();
+                dungeonManager.ShowDungeon(player.ATK);
                 Console.WriteLine("0. 나가기\n");
                 Console.WriteLine("원하시는 행동을 입력해주세요");
                 Console.Write(">>");

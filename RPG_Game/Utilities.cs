@@ -43,7 +43,7 @@ namespace RPG_Game
 
         public static object? LoadFile(LoadType type)
         {
-            var a = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location).Split("RPG_Game");
+            var a = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location).Split("RPG_GAME");
             switch (type)
             {
                 case LoadType.Player:
@@ -74,7 +74,7 @@ namespace RPG_Game
                     }
                 case LoadType.Map:
                     {
-                        string? path = a[0] + @"Data\Map_Data.json";
+                        string? path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Map_Data.json";
 
                         if (File.Exists(path) == false)
                             return null;
@@ -93,7 +93,7 @@ namespace RPG_Game
                     }
                 case LoadType.Item:
                     {
-                        string? path = a[0] + @"Data\Item_Data.json";
+                        string? path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Item_Data.json";
                         if (File.Exists(path) == false)
                             return null;
                         StreamReader? file = File.OpenText(path);

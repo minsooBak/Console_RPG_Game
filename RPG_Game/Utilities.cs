@@ -74,7 +74,7 @@ namespace RPG_Game
                     }
                 case LoadType.Map:
                     {
-                        string? path = a[0] + @"RPG_GAME\Data\Map_Data.json";
+                        string? path = a[0] + @"Data\Map_Data.json";
 
                         if (File.Exists(path) == false)
                             return null;
@@ -93,7 +93,7 @@ namespace RPG_Game
                     }
                 case LoadType.Item:
                     {
-                        string? path = a[0] + @"RPG_GAME\Data\Item_Data.json";
+                        string? path = a[0] + @"Data\Item_Data.json";
                         if (File.Exists(path) == false)
                             return null;
                         StreamReader? file = File.OpenText(path);

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Security.Cryptography;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RPG_Game
 {
@@ -42,6 +43,7 @@ namespace RPG_Game
 
         public static object? LoadFile(LoadType type)
         {
+            var a = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location).Split("RPG_Game");
             switch (type)
             {
                 case LoadType.Player:
@@ -72,7 +74,7 @@ namespace RPG_Game
                     }
                 case LoadType.Map:
                     {
-                        string? path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Map_Data.json";
+                        string? path = a[0] + @"RPG_GAME\Data\Map_Data.json";
 
                         if (File.Exists(path) == false)
                             return null;
@@ -91,7 +93,7 @@ namespace RPG_Game
                     }
                 case LoadType.Item:
                     {
-                        string? path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\Item_Data.json";
+                        string? path = a[0] + @"RPG_GAME\Data\Item_Data.json";
                         if (File.Exists(path) == false)
                             return null;
                         StreamReader? file = File.OpenText(path);

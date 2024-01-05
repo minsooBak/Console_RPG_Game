@@ -422,7 +422,6 @@ namespace RPG_Game
                                 Console.WriteLine("[탐험 결과]");
                                 Console.WriteLine($"체력 {hp} -> {player.Health}");
                                 Console.WriteLine($"Gold {gold}G -> {player.Gold} G");
-                                Console.WriteLine($"추가 골드 : {AddGold}");
                                 Console.WriteLine("\n0. 나가기\n");
                                 Console.WriteLine("원하시는 행동을 입력해주세요");
                                 Console.Write(">>");

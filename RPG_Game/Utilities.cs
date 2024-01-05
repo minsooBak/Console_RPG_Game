@@ -93,6 +93,7 @@ namespace RPG_Game
                     }
                 case LoadType.Item:
                     {
+                        
                         string a = Directory.GetParent(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)).Parent.Parent.Parent.FullName;
                         string? path = a + @"\Data\Item_Data.json";
                         if (File.Exists(path) == false)

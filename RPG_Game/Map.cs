@@ -26,6 +26,7 @@ namespace RPG_Game
         private DungeonManager dungeonManager;
         private CreateCharacter createCharacter;
         private MapType mapType = MapType.NONE;
+        private bool isGameEnd = false;
         public Map()
         {
             player = new Player();
@@ -36,39 +37,43 @@ namespace RPG_Game
 
         public void DrawMap()
         {
-            switch (mapType)
+            while (isGameEnd == false) 
             {
-                case MapType.Stats:
-                    {
-                        ShowStats();
-                        break;
-                    }
-                case MapType.Inventory:
-                    {
-                        ShowInventory();
-                        break;
-                    }
-                case MapType.Shop:
-                    {
-                        ShowShop();
-                        break;
-                    }
-                case MapType.Rest:
-                    {
-                        ShowRest();
-                        break;
-                    }
-                case MapType.Dungeon:
-                    {
-                        ShowDungeon();
-                        break;
-                    }
-                default:
-                    {
-                        ShowTown();
-                        break;
-                    }
+                switch (mapType)
+                {
+                    case MapType.Stats:
+                        {
+                            ShowStats();
+                            break;
+                        }
+                    case MapType.Inventory:
+                        {
+                            ShowInventory();
+                            break;
+                        }
+                    case MapType.Shop:
+                        {
+                            ShowShop();
+                            break;
+                        }
+                    case MapType.Rest:
+                        {
+                            ShowRest();
+                            break;
+                        }
+                    case MapType.Dungeon:
+                        {
+                            ShowDungeon();
+                            break;
+                        }
+                    default:
+                        {
+                            ShowTown();
+                            break;
+                        }
+                }
             }
+            
         }
 
         void ShowStats()
@@ -138,7 +143,6 @@ namespace RPG_Game
                             if (str != null && int.TryParse(str, out int b))
                             {
                                 type = int.Parse(str);
-                                //장착관리 시작
                                 if (type > 0 && type < itemManager.GetInventorySize + 1)
                                 {
                                     itemManager.ItemEquip(type - 1);
@@ -147,6 +151,7 @@ namespace RPG_Game
                                 }
                                 else if (type == 0)
                                 {
+                                    mapType = MapType.NONE;
                                     Console.Clear();
                                     break;
                                 }
@@ -167,6 +172,7 @@ namespace RPG_Game
                     }
                     else if (type == 0)
                     {
+                        mapType = MapType.NONE;
                         Console.Clear();
                         break;
                     }
@@ -206,6 +212,7 @@ namespace RPG_Game
                     if (type == 0)
                     {
                         Console.Clear();
+                        mapType = MapType.NONE;
                         break;
                     }
                     else if (type == 1)
@@ -537,12 +544,13 @@ namespace RPG_Game
                     {
                         mapType = (MapType)(type - 1);
                         Console.Clear();
-                        DrawMap();
+                        break;
                     }
                     else if (type == 0)
                     {
                         Console.Clear();
                         EventManager.Instance.PostEvent(EventType.eGameEnd);
+                        isGameEnd = true;
                         break;
                     }
                     else

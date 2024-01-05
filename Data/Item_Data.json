@@ -1,0 +1,92 @@
+[
+  {
+    "Name": "천 투구  ",
+    "Armor": 2,
+    "Power": 0,
+    "Type": 1,
+    "Description": "천으로 만든 투구",
+    "Cost": 100,
+    "ForSale": "TRUE"
+  },
+  {
+    "Name": "구리 투구",
+    "Armor": 5,
+    "Power": 0,
+    "Type": 1,
+    "Description": "구리로 만든 투구",
+    "Cost": 200,
+    "ForSale": "TRUE"
+  },
+  {
+    "Name": "철 투구  ",
+    "Armor": 9,
+    "Power": 0,
+    "Type": 1,
+    "Description": "철로 만든 투구",
+    "Cost": 500,
+    "ForSale": "TRUE"
+  },
+  {
+    "Name": "천 갑옷  ",
+    "Armor": 5,
+    "Power": 0,
+    "Type": 2,
+    "Description": "천으로 만든 갑옷",
+    "Cost": 200,
+    "ForSale": "TRUE"
+  },
+  {
+    "Name": "구리 갑옷",
+    "Armor": 9,
+    "Power": 0,
+    "Type": 2,
+    "Description": "구리로 만든 갑옷",
+    "Cost": 400,
+    "ForSale": "TRUE"
+  },
+  {
+    "Name": "철 갑옷  ",
+    "Armor": 15,
+    "Power": 0,
+    "Type": 2,
+    "Description": "철로 만든 갑옷",
+    "Cost": 1000,
+    "ForSale": "TRUE"
+  },
+  {
+    "Name": "목검     ",
+    "Armor": 0,
+    "Power": 2,
+    "Type": 0,
+    "Description": "나무로 만든 검",
+    "Cost": 400,
+    "ForSale": "TRUE"
+  },
+  {
+    "Name": "구리검   ",
+    "Armor": 0,
+    "Power": 5,
+    "Type": 0,
+    "Description": "구리로 만든 검",
+    "Cost": 600,
+    "ForSale": "TRUE"
+  },
+  {
+    "Name": "철검     ",
+    "Armor": 0,
+    "Power": 10,
+    "Type": 0,
+    "Description": "철로 만든 검",
+    "Cost": 1200,
+    "ForSale": "TRUE"
+  },
+  {
+    "Name": "운영자검",
+    "Armor": 999,
+    "Power": 999,
+    "Type": 0,
+    "Description": "운영자의 검",
+    "Cost": 0,
+    "ForSale": "FALSE"
+  }
+]

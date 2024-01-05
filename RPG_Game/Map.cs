@@ -421,7 +421,7 @@ namespace RPG_Game
                                 Console.WriteLine(" 던전을 클리어 하셨습니다\n");
                                 Console.WriteLine("[탐험 결과]");
                                 Console.WriteLine($"체력 {hp} -> {player.Health}");
-                                Console.WriteLine($"Gold {gold}G -> {player.Gold} G");
+                                Console.WriteLine($"Gold {gold}G -> {dungeonManager.GetGold(type - 1)}G + {AddGold}G = {player.Gold}G");
                                 Console.WriteLine("\n0. 나가기\n");
                                 Console.WriteLine("원하시는 행동을 입력해주세요");
                                 Console.Write(">>");

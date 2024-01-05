@@ -20,6 +20,7 @@ namespace RPG_Game
         public int StageCount { get { return dungeons.Count; } }
         public int GetHp(int value) => dungeons[value].HP;
         public string GetName(int value) => dungeons[value].Name;
+        public int GetGold(int value) => dungeons[value].Gold;
         public void ShowDungeon(int atk)
         {
             foreach (Dungeon dungeon in dungeons)

@@ -324,7 +324,7 @@ namespace RPG_Game
             while (true)
             {
                 Utilities.TextColor("휴식하기", ConsoleColor.DarkYellow, ConsoleColor.Gray);
-                Console.WriteLine($"500G를 내면 체력을 회복할 수 있습니다\n");
+                Console.WriteLine($"500G를 내면 체력 10을 회복할 수 있습니다\n");
                 Console.WriteLine($"[HP]\n{player.Health}");
                 Console.WriteLine($"[보유골드]\n{player.Gold} G\n");
                 Console.WriteLine("1.휴식하기(500G)");
@@ -408,7 +408,9 @@ namespace RPG_Game
                             Console.WriteLine("===================================================");
                             continue;
                         }
-                        if (dungeonManager.SelectDungeon(type - 1, player.DEF, player.ATK))
+
+                        int AddGold = dungeonManager.SelectDungeon(type - 1, player.DEF, player.ATK);
+                        if (AddGold > 0)
                         {
                             Console.Clear();
                             while (true)
@@ -419,7 +421,8 @@ namespace RPG_Game
                                 Console.WriteLine(" 던전을 클리어 하셨습니다\n");
                                 Console.WriteLine("[탐험 결과]");
                                 Console.WriteLine($"체력 {hp} -> {player.Health}");
-                                Console.WriteLine($"Gold {gold} G -> {player.Gold} G");
+                                Console.WriteLine($"Gold {gold}G -> {player.Gold} G");
+                                Console.WriteLine($"추가 골드 : {AddGold}");
                                 Console.WriteLine("\n0. 나가기\n");
                                 Console.WriteLine("원하시는 행동을 입력해주세요");
                                 Console.Write(">>");

@@ -28,7 +28,7 @@ namespace RPG_Game
             }
         }
 
-        public bool SelectDungeon(int stage, int def, int atk)
+        public int SelectDungeon(int stage, int def, int atk)
         {
             int _def = dungeons[stage].DEF - def;
             if (_def > 0)
@@ -38,7 +38,7 @@ namespace RPG_Game
                 {
                     int hp = new Random().Next((dungeons[stage].HP - 5) + _def, dungeons[stage].HP + _def);
                     EventManager.Instance.PostEvent(EventType.eHealthChage, (hp / 2) * -1);
-                    return false;
+                    return 0;
                 }
                 else
                 {
@@ -48,7 +48,7 @@ namespace RPG_Game
                     EventManager.Instance.PostEvent(EventType.eGoldChage, dungeons[stage].Gold + gold);
                     EventManager.Instance.PostEvent(EventType.eExpChage, dungeons[stage].EXP);
                     EventManager.Instance.PostEvent(EventType.eHealthChage, hp * -1);
-                    return true;
+                    return gold;
                 }
             }else
             {
@@ -58,7 +58,7 @@ namespace RPG_Game
                 EventManager.Instance.PostEvent(EventType.eGoldChage, dungeons[stage].Gold + gold);
                 EventManager.Instance.PostEvent(EventType.eExpChage, dungeons[stage].EXP);
                 EventManager.Instance.PostEvent(EventType.eHealthChage, hp * -1);
-                return true;
+                return gold;
             }
         }
     }
